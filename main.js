@@ -28,6 +28,21 @@ class Field {
     while (gaming) {
       this.print();
       this.userMovement();
+      if (!this.inFieldBounds()) {
+        console.log("You've left the field!");
+        gaming = false;
+        break;
+      } else if (this.field[this.locationY][this.locationX] === hole) {
+        console.log("You fell down a hole!");
+        gaming = false;
+        break;
+      } else if (this.field[this.locationY][this.locationX] === hat) {
+        console.log("You found the hat!");
+        gaming = false;
+        break;
+      }
+      // update user position
+      this.field[this.locationY][this.locationX] = pathCharacter;
     }
   }
 
@@ -45,6 +60,16 @@ class Field {
     } else {
       console.log("Enter W, A, S or D");
     }
+  }
+
+  // defines whether the user is in the field
+  inFieldBounds() {
+    return (
+      this.locationY >= 0 &&
+      this.locationX >= 0 &&
+      this.locationY < this.field.length &&
+      this.locationX < this.field[0].length
+    );
   }
 }
 
